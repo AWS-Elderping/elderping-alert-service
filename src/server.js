@@ -91,7 +91,6 @@ app.put('/alerts/:id/resolve', validateToken, async (req, res) => {
     } else if (req.user.role === 'ELDER') {
       allowed = String(req.user.userId) === String(alert.user_id);
     } else if (req.user.role === 'FAMILY') {
-      const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
       const response = await fetch(`${authServiceUrl}/links/verify/${req.user.userId}/${alert.user_id}`);
       if (response.ok) {
         const data = await response.json();
