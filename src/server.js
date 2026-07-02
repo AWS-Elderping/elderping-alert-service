@@ -20,10 +20,10 @@ app.get('/health', (req, res) => res.status(200).json({ status: 'ok', service: '
 app.get('/healthz', (req, res) => res.status(200).json({ status: 'ok', service: 'alert-service' }));
 app.get('/ready', (req, res) => res.status(200).json({ status: 'ok', service: 'alert-service' }));
 
-// K8s ALB path prefix compatibility: strip /api/alerts prefix so routes work in both local and K8s
+// K8s ALB path prefix compatibility: strip /api/alert prefix so routes work in both local and K8s
 app.use((req, _res, next) => {
-  if (req.url.startsWith('/api/alerts')) {
-    req.url = req.url.replace('/api/alerts', '') || '/';
+  if (req.url.startsWith('/api/alert')) {
+    req.url = req.url.replace('/api/alert', '') || '/';
   }
   next();
 });
